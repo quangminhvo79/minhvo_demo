@@ -1,0 +1,5 @@
+<% if @videos.present? %>
+  <%= turbo_stream.update 'video_list' do %>
+    <%= render 'list', videos: @videos %>
+  <% end %>
+<% end %>

@@ -5,8 +5,31 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <div id="notifications">
+      <% flash.each do |type, message| %>
+        <div class="toast">
+          <div class="alert alert-error">
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span><%= message %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <main class="container mx-auto">
+      <div class="navbar bg-base-100">
+        <div class="flex-1">
+          <%= link_to root_path, class: 'font-semibold cursor-pointer normal-case text-xl' do %>
+            Youtube Sharing Video
+          <% end %>
+        </div>
+        <div class="flex-none gap-2">
+          <%= render 'layouts/user_actions' %>
+        </div>
+      </div>
       <%= yield %>
+      <div id="modal" class="modal"></div>
     </main>
   </body>
 </html>
