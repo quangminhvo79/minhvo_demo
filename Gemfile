@@ -53,6 +53,7 @@ gem "bootsnap", require: false
 gem 'devise',                      '~> 4.9'
 gem 'simple_form',                 '~> 5.2'
 gem 'httparty',                    '~> 0.21.0'
+gem 'view_component',              '~> 3.0.0'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

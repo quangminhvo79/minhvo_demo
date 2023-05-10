@@ -1,5 +1,5 @@
 <% if @videos.present? %>
   <%= turbo_stream.update 'video_list' do %>
-    <%= render 'list', videos: @videos %>
+    <%= render VideoComponent.with_collection(@videos) %>
   <% end %>
 <% end %>

@@ -1,6 +1,6 @@
 <h3 class="text-lg font-bold my-4">Share a Youtube Video</h3>
 
-<%= simple_form_for Video.new, url: videos_path, method: :post, data: { turbo: false } do |f| %>
+<%= simple_form_for Video.new, url: videos_path, method: :post do |f| %>
   <div class="space-y-3">
     <%= f.input :youtube_url, input_html: { class: 'input w-full border border-zinc-300' }, placeholder: 'Youtube Link', label: false, wrapper_html: { class: 'px-0' } %>
     <%= f.error :youtube_video_id, id: 'youtube_video_id' %>
