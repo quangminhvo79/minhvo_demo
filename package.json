@@ -1,0 +1,31 @@
+{
+  "name": "minhvo_demo",
+  "version": "1.0.0",
+  "description": "Demo Share youtube video",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quangminhvo79/minhvo_demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quangminhvo79/minhvo_demo/issues"
+  },
+  "homepage": "https://github.com/quangminhvo79/minhvo_demo#readme",
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.9",
+    "daisyui": "^2.51.6"
+  }
+}
