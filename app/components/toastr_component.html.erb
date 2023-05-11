@@ -1,0 +1,11 @@
+<% flash.to_h.each do |type, message| %>
+  <div class="toast z-[1000]" data-controller="notification">
+    <div class="alert <%= alert_class(type) %>">
+      <div>
+        <img src="<%= asset_path(icon_url(type)) %>" class="w-5 h-5" />
+        <span><%= message %></span>
+      </div>
+    </div>
+  </div>
+  <% flash.delete(type) %>
+<% end %>
