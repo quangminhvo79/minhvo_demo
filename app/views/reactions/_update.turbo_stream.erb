@@ -1,0 +1,7 @@
+<%= turbo_stream.update "#{@video.query_selector}_like" do %>
+  <%= render LikeComponent.new(video: @video) %>
+<% end %>
+
+<%= turbo_stream.update "#{@video.query_selector}_dislike" do %>
+  <%= render DislikeComponent.new(video: @video) %>
+<% end %>
