@@ -5,6 +5,8 @@
   </head>
 
   <body>
+    <%= turbo_stream_from user_signed_in?, :videos %>
+    <%= turbo_stream_from user_signed_in?, :reactions %>
     <div id="notifications"></div>
     <main class="container mx-auto">
       <div class="navbar bg-base-100">
