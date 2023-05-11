@@ -1,3 +1,6 @@
+<%= show_toastr %>
+<%= turbo_stream.update 'modal', nil %>
+
 <% if @videos.present? %>
   <%= turbo_stream.update 'video_list' do %>
     <%= render VideoComponent.with_collection(@videos) %>

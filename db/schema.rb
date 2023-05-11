@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_11_035622) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_11_140121) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "message"
+    t.bigint "user_id"
+    t.string "notificationable_type"
+    t.bigint "notificationable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notificationable_type", "notificationable_id"], name: "index_notifications_on_notificationable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
