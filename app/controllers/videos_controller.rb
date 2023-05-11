@@ -7,9 +7,7 @@ class VideosController < ApplicationController
     load_videos
   end
 
-  def new
-    @video = Video.find_by(id: params[:video_id])
-  end
+  def new; end
 
   def create
     service = Youtube::VideoCreator.new(youtube_url: youtube_url, user: current_user)
@@ -18,10 +16,8 @@ class VideosController < ApplicationController
       load_videos
 
       flash[:notice] = "Share Youtube video successfully"
-      render :index
     else
       flash[:error] = service.errors.full_messages.join(". ")
-      render :new
     end
   end
 
