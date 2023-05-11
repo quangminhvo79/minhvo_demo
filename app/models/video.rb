@@ -10,8 +10,22 @@ class Video < ApplicationRecord
   validates :youtube_video_id, presence: { message: "can't be blank or wrong video link" },
                                uniqueness: { scope: :creator, message: "can't be share a video twice times" }
 
+  after_commit :send_notification
+
   def create_reaction(kind:, user:)
     reaction = reactions.where(user: user).first_or_initialize
     reaction.update(kind: kind)
+  end
+
+  private
+
+  def send_notification
+    return unless self.persisted?
+
+    message = { notice: I18n.t('video_notification_messages', user_email: creator.email,
+                                                                title: title,
+                                                                youtube_video_id: youtube_video_id).html_safe }
+
+    broadcast_append_to("true:videos", target: "notifications", partial: 'notifications/new', locals: { message: message })
   end
 end
