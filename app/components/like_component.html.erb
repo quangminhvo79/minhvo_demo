@@ -1,0 +1,13 @@
+<div class="flex items-center gap-1">
+  <% if video.reactions.liked?(user: current_user) %>
+    <%= link_to video_reaction_path(video, video.reactions.find_by(user: current_user)), data: { turbo_method: :delete } do %>
+      <%= image_tag asset_path('like_active.svg'), class: 'w-5 h-5 cursor-pointer', id: video.query_selector %>
+    <% end %>
+  <% else %>
+    <%= link_to like_video_reactions_path(video), data: { turbo_method: :post } do %>
+      <%= image_tag asset_path('like.svg'), class: 'w-5 h-5 cursor-pointer', id: video.query_selector %>
+    <% end %>
+  <% end %>
+
+  <span><%= video.reactions.likes.size %></span>
+</div>

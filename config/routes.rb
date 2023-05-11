@@ -5,5 +5,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root 'videos#index'
 
-  resources :videos
+  resources :videos do
+    resources :reactions, only: :destroy do
+      collection do
+        post :like
+        post :dislike
+      end
+    end
+  end
 end
