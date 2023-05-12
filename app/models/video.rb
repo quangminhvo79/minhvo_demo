@@ -9,7 +9,7 @@ class Video < ApplicationRecord
 
   validates :title, presence: true
   validates :youtube_video_id, presence: { message: "can't be blank or wrong video link" },
-                               uniqueness: { scope: :creator, message: "can't be share a video twice times" }
+                               uniqueness: { scope: :creator_id, message: "can't be share a video twice times" }
 
   after_create_commit :send_notification
 
@@ -20,11 +20,13 @@ class Video < ApplicationRecord
 
   private
 
-  def send_notification
-    message = I18n.t('video_notification_messages', user_email: creator.email,
-                                                    title: title,
-                                                    youtube_video_id: youtube_video_id)
+  def message
+    I18n.t('video_notification_messages', user_email: creator.email,
+                                          title: title,
+                                          youtube_video_id: youtube_video_id)
+  end
 
+  def send_notification
     User.where.not(id: creator.id).each do |user|
       Notification.create(message: message, user: user, notificationable: self)
       broadcast_append_to(user, :videos, target: "notifications",
