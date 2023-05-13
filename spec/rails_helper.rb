@@ -37,6 +37,7 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+RSpec::Mocks.configuration.allow_message_expectations_on_nil = true
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -69,4 +70,5 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end

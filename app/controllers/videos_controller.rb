@@ -15,9 +15,11 @@ class VideosController < ApplicationController
     if service.perform
       load_videos
 
-      flash[:notice] = "Share Youtube video successfully"
+      flash.now[:notice] = "Share Youtube video successfully"
+      render :create, status: :ok
     else
-      flash[:error] = service.errors.full_messages.join(". ")
+      flash.now[:error] = service.errors.full_messages.join(". ")
+      render :create, status: :bad_request
     end
   end
 
