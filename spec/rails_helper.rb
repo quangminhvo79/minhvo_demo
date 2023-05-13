@@ -1,5 +1,6 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require 'simplecov'
 
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
@@ -10,6 +11,12 @@ require "view_component/test_helpers"
 require "capybara/rspec"
 
 Dir[Rails.root.join('spec/supports/**/*.rb')].sort.each { |f| require f }
+SimpleCov.start do
+  add_filter %r{^/lib/}
+  add_filter %r{^/config/}
+  add_filter %r{^/spec/support/}
+  add_filter 'spec/rails_helper.rb'
+end
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
