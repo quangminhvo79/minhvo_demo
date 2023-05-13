@@ -6,6 +6,10 @@ class NotificationListComponent < ApplicationComponent
   end
 
   def notifications
-    Notification.where(user: @user)
+    @notifications ||= @user.notifications.order(created_at: :desc)
+  end
+
+  def render?
+    Current.current_user.present?
   end
 end
