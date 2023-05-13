@@ -4,7 +4,7 @@
   <% if notifications.present? %>
     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-slate-100 rounded-box w-[400px] max-w-[60vw]">
       <% notifications.each do |notification| %>
-        <div class="p-2 border-b border-zinc-300 last:border-0 w-full"><%= notification.message.html_safe %></div>
+        <div class="p-2 border-b border-zinc-300 last:border-0 w-full notification-item"><%= notification.message.html_safe %></div>
       <% end %>
     </ul>
   <% end %>
