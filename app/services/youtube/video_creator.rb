@@ -9,34 +9,33 @@ class Youtube::VideoCreator < ApplicationService
   end
 
   def perform
-    return false                       unless valid?
-    return expose_video_snippet_error  unless video_attributes
+    return false unless valid?
 
     ActiveRecord::Base.transaction do
+      unless video_attributes
+        copy_errors_from(video_snippet_service)
+        return false
+      end
+
       Video.create!(video_attributes.merge(creator: user))
     end
 
     true
   rescue StandardError => e
     Rails.logger.error e.backtrace.join("\n")
-
-    expose_errors(e)
+    expose_errors(e.message)
   end
 
   private
 
   attr_reader :youtube_url, :user
 
-  def expose_video_snippet_error
-    expose_errors(video_snippet_service.errors.full_messages)
+  def video_attributes
+    @video_attributes ||= video_snippet_service.load
   end
 
   def video_snippet_service
-    @video_snippet_service ||= Youtube::VideoSnippet.new(youtube_video_id: youtube_video_id)
-  end
-
-  def video_attributes
-    @video_attributes ||= video_snippet_service.load
+    @service ||= Youtube::VideoSnippet.new(youtube_video_id: youtube_video_id)
   end
 
   def youtube_video_id

@@ -1,4 +1,4 @@
-<%= show_toastr %>
+<%= turbo_stream.update(:notifications) { render(ToastrComponent.new(flash: flash)) } %>
 <%= turbo_stream.update 'modal', nil %>
 
 <% if @videos.present? %>

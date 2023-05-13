@@ -4,14 +4,20 @@ class ApplicationService
   include ActiveModel::Validations
 
   def expose_errors(message = nil)
-    errors.add(service_name, message.to_s)
+    errors.add(self.class.name.parameterize, message.to_s)
 
     false
   end
 
+  def error_sentence
+    errors.full_messages.to_sentence
+  end
+
   private
 
-  def service_name
-    self.class.name.parameterize
+  def copy_errors_from(errors_source)
+    errors_source.errors.each do |error|
+      errors.add(error.attribute, error.message)
+    end
   end
 end
