@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Youtube::VideoSnippet < ApplicationService
-  validates :youtube_video_id, presence: true
+  validates :youtube_video_id, presence: { message: 'invalid' }
 
   YOUTUBE_ENDPOINT = 'https://youtube.googleapis.com/youtube/v3/videos'
 
@@ -10,7 +10,7 @@ class Youtube::VideoSnippet < ApplicationService
   end
 
   def load
-    return expose_invalid_error              unless valid?
+    return false                             unless valid?
     return expose_youtube_service_error      if video_info[:error].present?
     return expose_errors('Not Found')        if video_info[:items].blank?
 
@@ -38,10 +38,6 @@ class Youtube::VideoSnippet < ApplicationService
   def video_info
     @video_info ||= HTTParty.get(YOUTUBE_ENDPOINT, query: query_params,
                                                    headers: { 'Content-Type' => 'application/json' }).with_indifferent_access
-  end
-
-  def expose_invalid_error
-    expose_errors('Input invalid')
   end
 
   def expose_youtube_service_error
