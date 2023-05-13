@@ -6,11 +6,11 @@ RSpec.describe Youtube::VideoSnippet do
     subject { described_class.new(youtube_video_id: youtube_video_id) }
 
     context 'when given youtube_video_id to blank' do
-      let(:youtube_video_ide) { nil }
+      let(:youtube_video_id) { nil }
 
       it 'returns false' do
         expect(subject.load).to eq false
-        expect(subject.error_sentence).to eq 'Youtube video Invalid'
+        expect(subject.error_sentence).to eq 'Youtube video invalid'
       end
     end
 

@@ -63,16 +63,16 @@ RSpec.describe "Videos", type: :request do
       end
 
       context 'when the service fails to perform' do
-        let(:error_messages) { ['YouTube URL is not valid'] }
+        let(:error_messages) { 'YouTube URL is not valid' }
 
         before do
           allow(service).to receive(:perform).and_return(false)
-          allow(service.errors).to receive(:full_messages).and_return(error_messages)
+          allow(service).to receive(:error_sentence).and_return(error_messages)
         end
 
         it 'sets the flash error and does not create a new video' do
           post videos_path, params: valid_params, xhr: true
-          expect(flash[:error]).to eq(error_messages.join('. '))
+          expect(flash[:error]).to eq(error_messages)
           expect(assigns[:videos]).to eq nil
           expect(response).to render_template :create
           expect(response).to have_http_status(:bad_request)

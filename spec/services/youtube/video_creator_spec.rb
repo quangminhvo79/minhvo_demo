@@ -45,7 +45,7 @@ RSpec.describe Youtube::VideoCreator do
 
       it 'returns false and logs an error' do
         expect(subject.perform).to be(false)
-        expect(subject.error_sentence).to eq("Youtube video Invalid")
+        expect(subject.error_sentence).to eq("Youtube video invalid")
       end
     end
 
