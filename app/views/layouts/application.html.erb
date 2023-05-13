@@ -9,7 +9,10 @@
     <%= turbo_stream_from current_user, :reactions %>
     <%= turbo_stream_from :update_reaction %>
 
-    <div id="notifications"></div>
+    <div id="notifications">
+      <%= render ToastrComponent.new(flash: flash) %>
+    </div>
+
     <main class="container mx-auto">
       <div class="navbar bg-base-100">
         <div class="flex-1">

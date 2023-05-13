@@ -9,7 +9,7 @@ class Video < ApplicationRecord
 
   validates :title, presence: true
   validates :youtube_video_id, presence: { message: "can't be blank or wrong video link" },
-                               uniqueness: { scope: :creator_id, message: "can't be share a video twice times" }
+                               uniqueness: { scope: :creator_id, message: "cannot share twice" }
 
   after_create_commit :send_notification
 

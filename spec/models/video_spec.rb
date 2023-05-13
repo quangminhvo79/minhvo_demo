@@ -11,7 +11,7 @@ RSpec.describe Video, type: :model do
     subject { create(:video)}
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:youtube_video_id).with_message("can't be blank or wrong video link") }
-    it { is_expected.to validate_uniqueness_of(:youtube_video_id).scoped_to(:creator_id).with_message("can't be share a video twice times") }
+    it { is_expected.to validate_uniqueness_of(:youtube_video_id).scoped_to(:creator_id).with_message("cannot share twice") }
   end
 
   describe '#create_reaction' do
