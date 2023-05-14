@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
 class VideosController < ApplicationController
-  skip_before_action :authenticate_user!, only: :index
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     load_videos
   end
 
   def new; end
+
+  def show
+    @video = Video.find(params[:id])
+  end
 
   def create
     service = Youtube::VideoCreator.new(youtube_url: youtube_url, user: current_user)

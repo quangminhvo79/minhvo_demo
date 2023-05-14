@@ -14,6 +14,27 @@ RSpec.describe "Videos", type: :request do
     end
   end
 
+  describe 'GET #show' do
+    context 'when video present' do
+      it 'render video detail page' do
+        get video_path(video)
+
+        expect(assigns(:video)).to eq video
+        expect(response).to render_template(:show)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when video not exists' do
+      it 'render 404 page' do
+        get video_path(id: 'not_found')
+
+        expect(response.body).to include("The page you were looking for doesn't exist.")
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe 'GET #new' do
     context 'when user not log in yet' do
       it 'redirect to login page' do
