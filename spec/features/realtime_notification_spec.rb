@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "RealtimeNotifications", type: :feature do
+RSpec.feature "Realtime notifications flow", type: :feature do
   let!(:user) { create :user, password: '12345678' }
   let!(:other_user) { create :user, email: 'other@user.com' }
 

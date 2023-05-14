@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Share Youtube Video Flow' do
+RSpec.feature 'Share Youtube video flow' do
   let!(:user) { create :user, password: '12345678' }
   let!(:video1) { create :video, title: 'Video Title 1', youtube_video_id: 'YoutubeIDaa', creator: user }
   let!(:video2) { create :video, title: 'Video Title 2', youtube_video_id: 'YoutubeIDbb', creator: user }
@@ -19,7 +19,7 @@ RSpec.feature 'Share Youtube Video Flow' do
   end
 
   context "User can share video after logged-in" do
-    context 'when Share Video successfully' do
+    context 'when share video successfully' do
       let(:service) { double('Youtube::VideoSnippet', load: result) }
       let(:result) do
         {
@@ -109,7 +109,7 @@ RSpec.feature 'Share Youtube Video Flow' do
         expect(HTTParty).to receive(:get).and_return({ error: { message: 'The API Key invalid!' } })
       end
 
-      scenario 'should not share Video when Youtube API key invalid' do
+      scenario 'should not share video when Youtube API key invalid' do
         visit root_path
 
         login(user)
