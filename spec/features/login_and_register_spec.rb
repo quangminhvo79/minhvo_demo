@@ -1,9 +1,9 @@
 require 'rails_helper'
 
-RSpec.feature "Login And Register Flows", type: :feature do
+RSpec.feature "Login and register flows", type: :feature do
   let(:user) { create :user, password: '12345678' }
 
-  scenario 'As a Guest, They can see Login and Register button' do
+  scenario 'As a Guest, they can see login and register button' do
     visit root_path
 
     form = page.find('form#new_user')
@@ -21,7 +21,7 @@ RSpec.feature "Login And Register Flows", type: :feature do
     login(user)
   end
 
-  scenario 'As a User, They can Login or LogOut with email and password' do
+  scenario 'As a User, they can login or log-out with email and password' do
     visit root_path
 
     login(user)
@@ -37,7 +37,7 @@ RSpec.feature "Login And Register Flows", type: :feature do
     expect(page).not_to have_selector('.btn.btn-circle.avatar')
   end
 
-  scenario 'As a Guest, They can Register a user account' do
+  scenario 'As a Guest, they can register a user account' do
     visit root_path
 
     click_on 'Register'
@@ -57,7 +57,7 @@ RSpec.feature "Login And Register Flows", type: :feature do
     expect(page).to have_selector('.btn-primary', text: 'Share Video')
   end
 
-  scenario 'As a Guest, I cannot Register a user account with wrong email format' do
+  scenario 'As a Guest, they cannot register a user account with wrong email format' do
     visit new_user_registration_path
 
     fill_in 'user_email', with: 'minhvo'
@@ -69,7 +69,7 @@ RSpec.feature "Login And Register Flows", type: :feature do
     expect(page).to have_content("Email is invalid")
   end
 
-  scenario 'As a Guest, I cannot Register a user account with password confirm not match with password' do
+  scenario 'As a Guest, they cannot register a user account with password confirm not match with password' do
     visit new_user_registration_path
 
     fill_in 'user_email', with: 'minhvo@gmail.com'
@@ -81,7 +81,7 @@ RSpec.feature "Login And Register Flows", type: :feature do
     expect(page).to have_content("Password confirmation doesn't match Password")
   end
 
-  scenario 'As a Guest, I cannot Register a user account with password too short' do
+  scenario 'As a Guest, they cannot register a user account with password too short' do
     visit new_user_registration_path
 
     fill_in 'user_email', with: 'minhvo@gmail.com'
