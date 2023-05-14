@@ -6,7 +6,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 if Rails.env.development?
-  admin = User.where(email: 'admin@gmail.com').first_or_initialize
-  admin.password = '123456'
-  admin.save
+  User.find_each do |user|
+    user.password = '123456'
+    user.save
+  end
 end

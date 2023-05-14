@@ -1,0 +1,17 @@
+video_1:
+  title: Video Seed 1
+  description: Description for video Seed 1
+  youtube_video_id: lYKU-SBAaqI
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:user_1) %>
+  thumbnails:
+    high:
+      url: https://i.ytimg.com/vi/rioEqqsODnw/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB0XdEPphzem2fjstC1SXLlhD3vbg
+
+video_2:
+  title: Video Seed 2
+  description: Description for video Seed 2
+  youtube_video_id: rioEqqsODnw
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:user_2) %>
+  thumbnails:
+    high:
+      url: https://i.ytimg.com/vi/lYKU-SBAaqI/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA3q6XVMLJRsNzr_1yZoW3JIQ4TMQ
