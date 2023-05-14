@@ -7,4 +7,10 @@ class ApplicationController < ActionController::Base
   def assign_current_user
     Current.current_user = current_user
   end
+
+  def not_found
+    render :file => "#{Rails.root}/public/404.html", layout: false, status: :not_found
+  end
+
+  rescue_from ActiveRecord::RecordNotFound, with: :not_found
 end
