@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :config_files do
   desc 'Upload yml files inside config folder'
   task :upload do

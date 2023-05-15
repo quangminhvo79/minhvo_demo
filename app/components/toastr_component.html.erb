@@ -2,7 +2,7 @@
   <div class="alert <%= alert_class(type) %>" data-controller="notification">
     <div>
       <img src="<%= asset_path(icon_url(type)) %>" class="w-5 h-5" />
-      <span><%= message %></span>
+      <span><%= message.html_safe %></span>
     </div>
   </div>
 <% end %>

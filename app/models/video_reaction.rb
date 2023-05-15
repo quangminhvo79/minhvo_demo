@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class VideoReaction < ApplicationRecord
-  TYPES = %w[like dislike]
+  TYPES = %w[like dislike].freeze
 
   belongs_to :user
   belongs_to :video
@@ -27,7 +27,7 @@ class VideoReaction < ApplicationRecord
   private
 
   def send_notification
-    return unless self.persisted?
+    return unless persisted?
     return if Current.current_user == video.creator
 
     Notification.create(message: message, user: video.creator, notificationable: self)
@@ -44,13 +44,13 @@ class VideoReaction < ApplicationRecord
   end
 
   def push_notification
-    broadcast_append_to(video.creator, :reactions, target: "notifications",
+    broadcast_append_to(video.creator, :reactions, target: 'notifications',
                                                    partial: 'notifications/new',
-                                                   locals: { message: { notice: message.html_safe } })
+                                                   locals: { message: { notice: message } })
   end
 
   def update_notification_list
-    broadcast_update_to(video.creator, :reactions, target: "notify-list",
+    broadcast_update_to(video.creator, :reactions, target: 'notify-list',
                                                    partial: 'notifications/list',
                                                    locals: { user: video.creator })
   end
