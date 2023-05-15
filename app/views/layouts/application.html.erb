@@ -9,7 +9,7 @@
     <%= turbo_stream_from current_user, :reactions %>
     <%= turbo_stream_from :update_reaction %>
 
-    <div id="notifications">
+    <div id="notifications" class="toast toast-end z-[1000]">
       <%= render ToastrComponent.new(flash: flash) %>
     </div>
 

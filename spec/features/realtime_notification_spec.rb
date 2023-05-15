@@ -17,14 +17,14 @@ RSpec.feature "Realtime notifications flow", type: :feature do
     login(user)
 
     Video.create(title: 'New Video', youtube_video_id: "YoutubeIDaa", creator: other_user)
-    expect(page).to have_content('other@user.com shared a Video New Video')
+    expect(page).to have_content("other@user.com shared a Video New Video")
   end
 
   scenario 'Without login, user will not receive notify about new video shared', :js do
     visit root_path
 
     Video.create(title: 'New Video', youtube_video_id: "YoutubeIDaa", creator: other_user)
-    expect(page).not_to have_content('other@user.com shared a Video New Video')
+    expect(page).not_to have_content("other@user.com shared a Video New Video")
   end
 
   scenario 'The owner of video will be receive notify when other user reaction on their video', :js do
@@ -32,7 +32,7 @@ RSpec.feature "Realtime notifications flow", type: :feature do
 
     login(user)
     video.create_reaction(kind: :like, user: other_user)
-    expect(page).not_to have_content('other@user.com like your Video: Video Title')
+    expect(page).to have_content("other@user.com like your video: Video Title")
   end
 end
 
