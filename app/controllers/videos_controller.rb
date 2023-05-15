@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class VideosController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   def index
     load_videos
@@ -19,7 +19,7 @@ class VideosController < ApplicationController
     if service.perform
       load_videos
 
-      flash.now[:notice] = "Share Youtube video successfully"
+      flash.now[:notice] = 'Share Youtube video successfully'
       render :create, status: :ok
     else
       flash.now[:error] = service.error_sentence

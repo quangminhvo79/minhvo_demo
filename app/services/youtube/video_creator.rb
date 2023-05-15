@@ -1,44 +1,46 @@
 # frozen_string_literal: true
 
-class Youtube::VideoCreator < ApplicationService
-  validates :youtube_url, :user, presence: true
+module Youtube
+  class VideoCreator < ApplicationService
+    validates :youtube_url, :user, presence: true
 
-  def initialize(youtube_url:, user:)
-    @youtube_url = youtube_url
-    @user = user
-  end
-
-  def perform
-    return false unless valid?
-
-    ActiveRecord::Base.transaction do
-      unless video_attributes
-        copy_errors_from(video_snippet_service)
-        return false
-      end
-
-      Video.create!(video_attributes.merge(creator: user))
+    def initialize(youtube_url:, user:)
+      @youtube_url = youtube_url
+      @user = user
     end
 
-    true
-  rescue StandardError => e
-    Rails.logger.error e.backtrace.join("\n")
-    expose_errors(e.message)
-  end
+    def perform
+      return false unless valid?
 
-  private
+      ActiveRecord::Base.transaction do
+        unless video_attributes
+          copy_errors_from(video_snippet_service)
+          return false
+        end
 
-  attr_reader :youtube_url, :user
+        Video.create!(video_attributes.merge(creator: user))
+      end
 
-  def video_attributes
-    @video_attributes ||= video_snippet_service.load
-  end
+      true
+    rescue StandardError => e
+      Rails.logger.error e.backtrace.join("\n")
+      expose_errors(e.message)
+    end
 
-  def video_snippet_service
-    @service ||= Youtube::VideoSnippet.new(youtube_video_id: youtube_video_id)
-  end
+    private
 
-  def youtube_video_id
-    youtube_url[%r{(?<=v=|/)([a-zA-Z0-9_-]{11})(?=&|\?|$)}]
+    attr_reader :youtube_url, :user
+
+    def video_attributes
+      @video_attributes ||= video_snippet_service.load
+    end
+
+    def video_snippet_service
+      @service ||= Youtube::VideoSnippet.new(youtube_video_id: youtube_video_id)
+    end
+
+    def youtube_video_id
+      youtube_url[%r{(?<=v=|/)([a-zA-Z0-9_-]{11})(?=&|\?|$)}]
+    end
   end
 end

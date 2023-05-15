@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :database do
   desc 'Create the database'
   task :create do

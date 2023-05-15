@@ -17,6 +17,7 @@ The application sharing Youtube video and realtime notification for new video sh
 - [View Component](https://github.com/mtcld/die-reguliere/blob/develop/app/components/readme.md)
 - Rspec, Capybara for Unit test and Integration test
 - Devise
+- Rubocop
 
 ## Getting started
 
@@ -34,6 +35,7 @@ git clone git@github.com:quangminhvo79/minhvo_demo.git
 ```
 cd minhvo_demo
 bundle install
+npm install
 ```
 
 3. create development and testing env database:
@@ -64,7 +66,7 @@ other@gmail.com / 123456
 ```
 
 ## Unit test and Integration test
-I have setup Rspec to helps me definition for Unit test and Integration test
+I have setup Rspec to helps me definition for Unit test and Integration test (features folder)
 to run test on your local machine, please use this:
 ```ruby
 bundle exec rspec
@@ -72,6 +74,12 @@ bundle exec rspec
 or you can run test in particular file:
 ```ruby
 bundle exec rspec <file-path>
+```
+
+## Rubocop
+Use Rubocop to helps automatically checks our code for common style violations and provides helpful suggestions for improving our code quality. To run rubocop on your local machine, please use this:
+```ruby
+bundle exec rubocop -a
 ```
 
 ## Usage
@@ -89,5 +97,3 @@ If you are running this application on your local machine, please remember to se
 If the YouTube video link is incorrect or the video does not exist, you will also not be able to share videos.
 
 In error case, i was show a notification in bottom-right corner to let you identify which is issues.
-
-
