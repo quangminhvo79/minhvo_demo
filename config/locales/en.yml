@@ -1,5 +1,5 @@
 en:
   video_notification_messages: |
-    <span class="font-semibold">%{user_email}</span> shared a Video <a class="font-semibold" href="https://youtu.be/%{youtube_video_id}">%{title}</a>
+    <span class="font-semibold">%{user_email}</span> shared a video <a class="font-semibold" href="/videos/%{video_id}">%{title}</a>
   reaction_notification_messages: |
-    <span class="font-semibold">%{user_email}</span> %{reaction_kind} your video: <a class="font-semibold" href="https://youtu.be/%{youtube_video_id}">%{title}</a>
+    <span class="font-semibold">%{user_email}</span> %{reaction_kind} your video: <a class="font-semibold" href="/videos/%{video_id}">%{title}</a>

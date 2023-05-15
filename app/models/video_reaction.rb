@@ -39,7 +39,7 @@ class VideoReaction < ApplicationRecord
   def message
     I18n.t('reaction_notification_messages', user_email: user.email,
                                              title: video.title,
-                                             youtube_video_id: video.youtube_video_id,
+                                             video_id: video.id,
                                              reaction_kind: kind.humanize.downcase)
   end
 
