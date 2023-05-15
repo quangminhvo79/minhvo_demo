@@ -6,33 +6,59 @@ RSpec.feature "Realtime notifications flow", type: :feature do
 
   let!(:video) { create :video, title: 'Video Title', youtube_video_id: 'YoutubeIDaa', creator: user }
 
-  scenario 'User can see videos shared without login' do
-    visit root_path
+  context 'when user not login' do
+    scenario 'user can see videos shared' do
+      visit root_path
 
-    expect(page).to have_selector('.group', count: 1)
+      expect(page).to have_selector('.group', count: 1)
+    end
+
+    scenario 'user will not receive notify about new video shared', :js do
+      visit root_path
+
+      Video.create(title: 'New Video', youtube_video_id: "YoutubeIDaa", creator: other_user)
+      expect(page).not_to have_content("other@user.com shared a video New Video")
+    end
   end
 
-  scenario 'After login, user will be receive notify about new video shared', :js do
-    visit root_path
-    login(user)
+  context 'when user logged-in' do
+    before do
+      Current.current_user = user
+    end
 
-    Video.create(title: 'New Video', youtube_video_id: "YoutubeIDaa", creator: other_user)
-    expect(page).to have_content("other@user.com shared a Video New Video")
+    scenario 'user will be receive notify about new video shared', :js do
+      visit root_path
+      login(user)
+
+      Video.create(title: 'New Video', youtube_video_id: "YoutubeIDaa", creator: other_user)
+      expect(page).to have_content("other@user.com shared a video New Video")
+
+      page.find('#notification-list').execute_script("this.classList.add('active');")
+
+      within('.dropdown-content') do
+        expect(page).to have_selector('div.notification-item', text: 'other@user.com shared a video New Video')
+      end
+    end
   end
 
-  scenario 'Without login, user will not receive notify about new video shared', :js do
-    visit root_path
+  context 'when user logged-in with other account' do
+    before do
+      Current.current_user = other_user
+    end
 
-    Video.create(title: 'New Video', youtube_video_id: "YoutubeIDaa", creator: other_user)
-    expect(page).not_to have_content("other@user.com shared a Video New Video")
-  end
+    scenario 'the owner of video will be receive notify when other user reaction on their video', :js do
+      visit root_path
+      login(user)
 
-  scenario 'The owner of video will be receive notify when other user reaction on their video', :js do
-    visit root_path
+      video.create_reaction(kind: :like, user: other_user)
+      expect(page).to have_content('other@user.com like your video: Video Title')
 
-    login(user)
-    video.create_reaction(kind: :like, user: other_user)
-    expect(page).to have_content("other@user.com like your video: Video Title")
+      page.find('#notification-list').execute_script("this.classList.add('active');")
+
+      within('.dropdown-content') do
+        expect(page).to have_selector('div.notification-item', text: 'other@user.com like your video: Video Title')
+      end
+    end
   end
 end
 

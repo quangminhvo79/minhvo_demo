@@ -23,15 +23,26 @@ class Video < ApplicationRecord
   def message
     I18n.t('video_notification_messages', user_email: creator.email,
                                           title: title,
-                                          youtube_video_id: youtube_video_id)
+                                          video_id: id)
   end
 
   def send_notification
     User.where.not(id: creator.id).each do |user|
       Notification.create(message: message, user: user, notificationable: self)
-      broadcast_append_to(user, :videos, target: "notifications",
-                                         partial: 'notifications/new',
-                                         locals: { message: { notice: message.html_safe }, user: user })
+      push_notification(user: user)
+      update_notification_list(user: user)
     end
+  end
+
+  def push_notification(user:)
+    broadcast_append_to(user, :videos, target: "notifications",
+                                       partial: 'notifications/new',
+                                       locals: { message: { notice: message.html_safe }, user: user })
+  end
+
+  def update_notification_list(user:)
+    broadcast_update_to(user, :reactions, target: "notify-list",
+                                                   partial: 'notifications/list',
+                                                   locals: { user: user })
   end
 end

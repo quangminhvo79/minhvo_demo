@@ -8,4 +8,9 @@
     visibility: visible;
     opacity: 1;
   }
+
+  .dropdown.active .dropdown-content {
+    opacity: 1;
+    visibility: visible;
+  }
 }
